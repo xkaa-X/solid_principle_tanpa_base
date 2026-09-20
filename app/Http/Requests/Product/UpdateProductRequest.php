@@ -10,6 +10,7 @@ class UpdateProductRequest extends FormRequest
 
     public function rules(): array {
         return [
+            'categories_id' => 'sometimes|exists:categories,id',
             'nama_produk' => 'sometimes|string|max:255',
             'harga' => 'sometimes|numeric|min:0',
             'stok' => 'sometimes|integer|min:0',

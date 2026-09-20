@@ -3,14 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model
 {
     //
     protected $fillable = [
+        'category_id',
         'nama_produk',
         'harga',
         'stok',
         'status'
     ];
+
+    public function category(): BelongsTo {
+        return $this->belongsTo(Category::class);
+    }
 }

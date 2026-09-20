@@ -10,21 +10,22 @@ use Illuminate\Database\Eloquent\Model;
 class ProductRepository implements ProductRepositoryInterface
 {
     public function getAll(): Collection {
-        return Product::all();
+        return Product::with('category')->get();
     }
 
     public function findById(int $id): ?Model {
-        return Product::findOrFail($id);
+        return Product::with('category')->findOrFail($id);
     }
 
     public function create(array $data): ?Model {
-        return Product::create($data);
+        $product = Product::create($data);
+        return $product->load('category');
     }
 
     public function update(int $id, array $data): ?Model {
         $product = Product::findOrFail($id);
         $product->update($data);
-        return $product;
+        return $product->load('category');
     }
 
     public function delete(int $id): bool {
